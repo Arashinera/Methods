@@ -23,6 +23,9 @@ import java.util.Locale;
 //десяткового роздільника.
 
 public class Main {
+
+    //Створюємо змінні класу Main :
+    static int choice;
     static String productName;
     static double productPrice;
     static int productQuantity;
@@ -35,23 +38,34 @@ public class Main {
     public static final String CURRENCY = "EUR";
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        scanner.useLocale(Locale.ENGLISH);
 
+        //Тайтл :
         title();
 
-        //Перше замовлення :
-        orderInput();
-        orderOutput();
+        //Задаємо кількість замовлень від 1 до 10 :
+        do {
+            System.out.println("How many orders do you want to create (from 1 to 10)? :");
+            choice = scanner.nextInt();
+        } while (choice < 1 || choice > 10);
 
-        //Друге замовлення :
-        orderInput();
-        orderOutput();
+        //Задаємо цикл створення замовлень :
+        for (int i = 0; i < choice; i++){
+            //Методи введеня та виведення :
+            orderInput();
+            orderOutput();
+        }
 
+        scanner.close();
     }
 
+    //Метод виведення тайтлу :
     private static void title() {
         System.out.println("\nWelcome to the \"NAVI SHOP\"! - the best hardware shop !");
     }
 
+    //Метод введення значень замовлення :
     private static void orderInput() {
         Scanner input = new Scanner(System.in);
         input.useLocale(Locale.ENGLISH);
@@ -70,6 +84,7 @@ public class Main {
 
     }
 
+    //Метод виведення значень замовлення :
     private static void orderOutput() {
 
         count++;
@@ -92,10 +107,12 @@ public class Main {
                 productPrice, productQuantity, CURRENCY, sum, discount, CURRENCY, discountSum, CURRENCY, totalSum);
     }
 
+    //Метод розрахунку загальної ціни без знижки :
     private static double productCostWithoutDiscount(double productPrice, int productQuantity) {
         return productPrice * productQuantity;
     }
 
+    //Метод розрахунку значення знижки :
     private static int productDiscount(double sum) {
         if (sum > 0 && sum <= 5000) {
             return discount = 5;
@@ -106,14 +123,17 @@ public class Main {
         }
     }
 
+    //Метод розрахунку суми знижки :
     private static double productCostDiscount(double sum, int discount) {
         return (sum / 100) * discount;
     }
 
+    //Метод розрахунку загальної ціни зі знижкою :
     private static double productTotalSum(double sum, double discountSum) {
         return sum - discountSum;
     }
 
+    //Метод виявлення закінчення змінної count :
     private static String theCountEnding(int count) {
         switch (count) {
             case 1:
