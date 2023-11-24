@@ -33,7 +33,7 @@ public class Main {
     static double sum;
     static double discountSum;
     static double totalSum;
-    static int count = 0;
+    static double count = 0;
     static String countEnding;
     public static final String CURRENCY = "EUR";
 
@@ -46,12 +46,12 @@ public class Main {
 
         //Задаємо кількість замовлень від 1 до 10 :
         do {
-            System.out.println("How many orders do you want to create (from 1 to 10)? :");
+            System.out.println("How many orders do you want to create (from 1 to 100)? :");
             choice = scanner.nextInt();
-        } while (choice < 1 || choice > 10);
+        } while (choice < 1 || choice > 100);
 
         //Задаємо цикл створення замовлень :
-        for (int i = 0; i < choice; i++){
+        for (int i = 0; i < choice; i++) {
             //Методи введеня та виведення :
             orderInput();
             orderOutput();
@@ -95,7 +95,7 @@ public class Main {
         totalSum = productTotalSum(sum, discountSum);
 
         System.out.printf("-------------------------%n" +
-                        "Your %d%s order is :%n" +
+                        "Your %.0f%s order is :%n" +
                         "Product name : %s%n" +
                         "Product price : %s %.2f%n" +
                         "Product quantity : %d%n" +
@@ -134,20 +134,16 @@ public class Main {
     }
 
     //Метод виявлення закінчення змінної count :
-    private static String theCountEnding(int count) {
-        switch (count) {
-            case 1:
-                countEnding = "st";
-                return countEnding;
-            case 2:
-                countEnding = "nd";
-                return countEnding;
-            case 3:
-                countEnding = "rd";
-                return countEnding;
-            default:
-                countEnding = "th";
-                return countEnding;
+    private static String theCountEnding(double count) {
+        if (count % 10 == 1) {
+            countEnding = "st";
+        } else if (count % 10 == 2) {
+            countEnding = "nd";
+        } else if (count % 10 == 3) {
+            countEnding = "rd";
+        } else {
+            countEnding = "th";
         }
+        return countEnding;
     }
-}
+    }
